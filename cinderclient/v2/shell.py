@@ -198,6 +198,42 @@ def _extract_metadata(args):
            nargs='?',
            metavar='<tenant>',
            help='Display information from single tenant (Admin only).')
+
+@utils.arg('--availability_zone',
+           metavar='<availability_zone>',
+           default=None,
+           help='Filters results by availability_zone.')
+@utils.arg('--source_volid',
+           metavar='<source_volid>',
+           default=None,
+           help='Filters results by source_volid.')
+@utils.arg('--volume_type',
+           metavar='<volume_type>',
+           default=None,
+           help='Filters results by volume_type.')
+@utils.arg('--consistencygroup_id',
+           metavar='<consistencygroup_id>',
+           default=None,
+           help='Filters results by consistencygroup_id.')
+@utils.arg('--encrypted',
+           metavar='<True|False>',
+           const=True,
+           nargs='?',
+           default=None,
+           help='Filters results by encrypted.')
+@utils.arg('--multiattach',
+           metavar='<True|False>',
+           const=True,
+           nargs='?',
+           default=None,
+           help='Filters results by multiattach.')
+@utils.arg('--bootable',
+           metavar='<True|False>',
+           const=True,
+           nargs='?',
+           default=None,
+           help='Filters results by bootable')
+
 @utils.service_type('volumev2')
 def do_list(cs, args):
     """Lists all volumes."""
@@ -212,6 +248,13 @@ def do_list(cs, args):
         'project_id': args.tenant,
         'name': args.name,
         'status': args.status,
+        'availability_zone': args.availability_zone,
+        'source_volid': args.source_volid,
+        'volume_type': args.volume_type,
+        'consistencygroup_id': args.consistencygroup_id,
+        'encrypted': args.encrypted,
+        'multiattach': args.multiattach,
+        'bootable': args.bootable,
         'metadata': _extract_metadata(args) if args.metadata else None,
     }
 
